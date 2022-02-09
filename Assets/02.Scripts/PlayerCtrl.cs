@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour
@@ -9,8 +10,8 @@ public class PlayerCtrl : MonoBehaviour
     private Animator animator;
     public float speed = 6.0f;
     public VariableJoystick variableJoystick;
-    private Vector3 max;
-    private Vector3 min;
+    public TMP_Text playerPosition;
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +22,6 @@ public class PlayerCtrl : MonoBehaviour
         Debug.Log($"bounds Size : {bounds.size}");
         Transform planeTransform = plane.GetComponent<Transform>();
         Debug.Log($"planeTransform scale : {planeTransform.localScale}");
-
-        max = new Vector3(planeTransform.localScale.x * bounds.size.x * 0.5f - 10.0f, 0, planeTransform.localScale.z * bounds.size.z * 0.5f - 10.0f);
-        min = max * -1f;
-        Debug.Log($"max : {max} min: {min}");
           
     }
 
@@ -44,6 +41,7 @@ public class PlayerCtrl : MonoBehaviour
 
         }
         Debug.Log($"X : {transform.position.x} Z : {transform.position.z}");
+        playerPosition.text = $"X: {transform.position.x:00}, Z: {transform.position.z:00}";
 
     }
 }
