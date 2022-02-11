@@ -11,11 +11,13 @@ public class PlayerCtrl : MonoBehaviour
     public float speed = 6.0f;
     public VariableJoystick variableJoystick;
     public TMP_Text playerPosition;
+    private Camera mainCamera;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        mainCamera = Camera.main;
         animator = GetComponent<Animator>();
         meshFilter = plane.GetComponent<MeshFilter>();
         Bounds bounds = meshFilter.mesh.bounds;
@@ -32,11 +34,17 @@ public class PlayerCtrl : MonoBehaviour
         Vector3 moveDir = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
         moveDir.y = 0f;
 
+        Quaternion cameraRot = mainCamera.transform.localRotation;
+        cameraRot.x = 0;
+        cameraRot.z = 0;
+
+
+
         animator.SetFloat("Movement", moveDir.magnitude);
 
         if (moveDir != Vector3.zero)
         {
-            transform.rotation = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.LookRotation(moveDir) * cameraRot;
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
         }
