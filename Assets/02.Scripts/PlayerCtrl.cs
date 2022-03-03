@@ -30,8 +30,13 @@ public class PlayerCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"Horizontal : {variableJoystick.Horizontal} Vertical : {variableJoystick.Vertical}");
-        Vector3 moveDir = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
+        //Debug.Log($"Horizontal : {variableJoystick.Horizontal} Vertical : {variableJoystick.Vertical}");
+
+        Vector3 cameraForward = mainCamera.transform.forward;
+        Vector3 cameraRight = mainCamera.transform.right;
+
+        Vector3 moveDir = (cameraForward * variableJoystick.Vertical) + (cameraRight * variableJoystick.Horizontal);
+        //Vector3 moveDir = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
         moveDir.y = 0f;
 
         Quaternion cameraRot = mainCamera.transform.localRotation;
@@ -44,11 +49,13 @@ public class PlayerCtrl : MonoBehaviour
 
         if (moveDir != Vector3.zero)
         {
-            transform.rotation = Quaternion.LookRotation(moveDir) * cameraRot;
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            //transform.rotation = Quaternion.LookRotation(moveDir) * cameraRot;
+            //transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            transform.rotation = Quaternion.LookRotation(moveDir);
+            transform.Translate(speed * Time.deltaTime * Vector3.forward);
 
         }
-        Debug.Log($"X : {transform.position.x} Z : {transform.position.z}");
+        //Debug.Log($"X : {transform.position.x} Z : {transform.position.z}");
         playerPosition.text = $"X: {transform.position.x:00}, Z: {transform.position.z:00}";
 
     }
