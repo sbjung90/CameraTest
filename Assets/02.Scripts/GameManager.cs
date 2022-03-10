@@ -11,6 +11,17 @@ public class GameManager : MonoBehaviour
     public GameObject   _snowEffect;
     public GameObject   _sakuraEffect;
 
+    private void Awake()
+    {
+        ResourceService.Instance.StartService();
+        SoundService.Instance.StartService();
+    }
+
+    private void Start()
+    {
+        SoundService.Instance.PlaySound("CombatBGM");
+    }
+
     // Start is called before the first frame update
     public void OnGameExit()
     {
