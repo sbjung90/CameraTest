@@ -43,8 +43,6 @@ public class PlayerCtrl : MonoBehaviour
         cameraRot.x = 0;
         cameraRot.z = 0;
 
-
-
         animator.SetFloat("Movement", moveDir.magnitude);
 
         if (moveDir != Vector3.zero)

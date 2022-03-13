@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace AI
 {
-    public interface IState<T> where T : MonoBehaviour
+    public interface IState<T>
     {
         void Enter(T entity);
         void Execute(T entity);
