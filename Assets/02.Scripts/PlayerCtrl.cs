@@ -13,6 +13,8 @@ public class PlayerCtrl : MonoBehaviour
     public TMP_Text playerPosition;
     private Camera mainCamera;
 
+    private Vector3 moveDir = Vector3.zero;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +37,10 @@ public class PlayerCtrl : MonoBehaviour
         Vector3 cameraForward = mainCamera.transform.forward;
         Vector3 cameraRight = mainCamera.transform.right;
 
-        Vector3 moveDir = (cameraForward * variableJoystick.Vertical) + (cameraRight * variableJoystick.Horizontal);
+        Debug.Log($"mainCamera forward: {cameraForward} right: {cameraRight}");
+
+
+        moveDir = (cameraForward * variableJoystick.Vertical) + (cameraRight * variableJoystick.Horizontal);
         //Vector3 moveDir = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
         moveDir.y = 0f;
 
@@ -51,10 +56,15 @@ public class PlayerCtrl : MonoBehaviour
             //transform.Translate(Vector3.forward * speed * Time.deltaTime);
             transform.rotation = Quaternion.LookRotation(moveDir);
             transform.Translate(speed * Time.deltaTime * Vector3.forward);
-
         }
+
+
         //Debug.Log($"X : {transform.position.x} Z : {transform.position.z}");
         playerPosition.text = $"X: {transform.position.x:00}, Z: {transform.position.z:00}";
+
+    }
+    private void LateUpdate()
+    {
 
     }
 }
